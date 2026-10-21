@@ -1,16 +1,25 @@
 package tests;
 
-import base.BaseTest;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
-import org.testng.Assert;
+import utils.BaseTest;
+
+
 
 public class NdosiHomeTest extends BaseTest {
+    WebDriver driver;
+
     @Test
-    public void openNdosiWebsite() throws InterruptedException {
-        driver.get("https://ndosisimplifiedautomation.vercel.app");
-        System.out.println("Page title: " + driver.getTitle());
-        Assert.assertEquals(driver.getTitle(), "Ndosi Test Automation");
-
-
+    public void loginTest() {
+        homepage.checkIfNdosiWebsiteIsLoaded();
+        homepage.clickHomeLoginButton();
+        loginpage.enterUsername("admin@gmail.com");
+        loginpage.enterPassword("@12345678");
+        loginpage.clickLoginButton();
+        dashboardpage.verifyLoginWasSuccessful();
+        dashboardpage.clickMenu();
+        dashboardpage.clickAdminPanel();
+        admindashboardpage.clickGroupsButton();
+        admindashboardpage.clickCreateANewGroupButton();
     }
 }
