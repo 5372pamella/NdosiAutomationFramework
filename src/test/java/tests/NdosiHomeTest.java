@@ -21,5 +21,22 @@ public class NdosiHomeTest extends BaseTest {
         dashboardpage.clickAdminPanel();
         admindashboardpage.clickGroupsButton();
         admindashboardpage.clickCreateANewGroupButton();
+
+        newgrouppage.enterGroupName("Automation 2014");
+        newgrouppage.enterGroupDescription("This is a test automation group");
+        newgrouppage.enterYear("2026");
+        newgrouppage.enterMaxCapacity("100");
+
+        newgrouppage.clickCreateGroupButton();
+
+        org.testng.Assert.assertTrue(
+                newgrouppage.isGroupCreated(),
+                "Group was not created successfully"
+        );
     }
 }
+
+
+
+
+
