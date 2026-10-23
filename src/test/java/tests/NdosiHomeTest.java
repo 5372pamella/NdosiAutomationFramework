@@ -1,42 +1,46 @@
+
 package tests;
 
-import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.BaseTest;
 
-
-
 public class NdosiHomeTest extends BaseTest {
-    WebDriver driver;
 
     @Test
     public void loginTest() {
+
+        // Open the Ndosi website and log in
         homepage.checkIfNdosiWebsiteIsLoaded();
         homepage.clickHomeLoginButton();
         loginpage.enterUsername("admin@gmail.com");
         loginpage.enterPassword("@12345678");
         loginpage.clickLoginButton();
+
+        // Verify login and navigate to the Groups page
         dashboardpage.verifyLoginWasSuccessful();
         dashboardpage.clickMenu();
         dashboardpage.clickAdminPanel();
-        admindashboardpage.clickGroupsButton();
-        admindashboardpage.clickCreateANewGroupButton();
+        adminpage.clickGroupsButton();
+        adminpage.clickCreateANewGroupButton();
 
-        newgrouppage.enterGroupName("Automation 2014");
-        newgrouppage.enterGroupDescription("This is a test automation group");
-        newgrouppage.enterYear("2026");
-        newgrouppage.enterMaxCapacity("100");
+        // Enter the new group details
+        grouppage.enterGroupName(
+                "Automation " + System.currentTimeMillis()
+        );
+        grouppage.enterGroupDescription(
+                "This is a test automation group"
+        );
+        grouppage.enterYear("2026");
+        grouppage.enterMaxCapacity("100");
 
-        newgrouppage.clickCreateGroupButton();
+        // Submit the form
+        grouppage.clickCreateGroupButton();
 
-        org.testng.Assert.assertTrue(
-                newgrouppage.isGroupCreated(),
+        // Verify that the group was created
+        Assert.assertTrue(
+                grouppage.isGroupCreated(),
                 "Group was not created successfully"
         );
     }
 }
-
-
-
-
-
