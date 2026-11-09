@@ -1,8 +1,12 @@
 package tests;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.BaseTest;
+import org.testng.annotations.Listeners;
+import listeners.TestListener;
 
+@Listeners(TestListener.class)
 public class NdosiNegativeTest extends BaseTest {
     @Test
     public void loginWithInvalidPasswordTest(){
