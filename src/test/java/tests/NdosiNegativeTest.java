@@ -33,4 +33,5 @@ public class NdosiNegativeTest extends BaseTest {
         Assert.assertEquals(invalidLoginMessage, "Invalid email or password"
                 ,"The expected error message was not displayed");
     }
+
 }
