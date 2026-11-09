@@ -1,13 +1,9 @@
-
 package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-
 import java.time.Duration;
 
 public class LoginPage {
@@ -41,6 +37,17 @@ public class LoginPage {
                 .until(ExpectedConditions.elementToBeClickable(
                         loginButton))
                 .click();
+    }
+    public String getInvalidLoginMessage() {
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
+
+        return driver.switchTo().alert().getText();
+    }
+
+    public void acceptAlert() {
+        driver.switchTo().alert().accept();
     }
 }
 

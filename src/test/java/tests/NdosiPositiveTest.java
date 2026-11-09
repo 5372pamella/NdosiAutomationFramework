@@ -5,18 +5,15 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.BaseTest;
 
-public class NdosiHomeTest extends BaseTest {
+public class NdosiPositiveTest extends BaseTest {
 
     @Test
     public void loginTest() {
-
         homepage.checkIfNdosiWebsiteIsLoaded();
         homepage.clickHomeLoginButton();
         loginpage.enterUsername("admin@gmail.com");
         loginpage.enterPassword("@12345678");
         loginpage.clickLoginButton();
-
-
         dashboardpage.verifyLoginWasSuccessful();
         dashboardpage.clickMenu();
         dashboardpage.clickAdminPanel();
