@@ -9,10 +9,14 @@ public class BrowserFactory {
     public static WebDriver startBrowser(String url) {
 
         EdgeOptions options = new EdgeOptions();
+        if ("true".equalsIgnoreCase(System.getenv("CI"))) {
+            options.addArguments("--headless=new");
+        }
+
+        options.addArguments("--window-size=1920,1080");
 
         WebDriver driver = new EdgeDriver(options);
 
-        driver.manage().window().maximize();
         driver.get(url);
 
         return driver;
