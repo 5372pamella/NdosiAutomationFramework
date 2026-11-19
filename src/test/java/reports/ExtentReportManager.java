@@ -1,3 +1,4 @@
+
 package reports;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -11,9 +12,10 @@ public class ExtentReportManager {
     private static final ThreadLocal<ExtentTest> test =
             new ThreadLocal<>();
 
-    public static ExtentReports getInstance() {
+    public static synchronized ExtentReports getInstance() {
 
         if (extent == null) {
+
             ExtentSparkReporter spark =
                     new ExtentSparkReporter("test-output/ExtentReport.html");
 
@@ -21,7 +23,7 @@ public class ExtentReportManager {
             extent.attachReporter(spark);
 
             extent.setSystemInfo("Project", "Ndosi Automation Framework");
-            extent.setSystemInfo("Browser", "Chrome");
+            extent.setSystemInfo("Browser", "Microsoft Edge");
         }
 
         return extent;

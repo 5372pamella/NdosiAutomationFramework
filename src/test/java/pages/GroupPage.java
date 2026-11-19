@@ -12,70 +12,74 @@ import java.time.Duration;
 
 public class GroupPage {
 
-    WebDriver driver;
+    private WebDriver driver;
+    private WebDriverWait wait;
 
-    By groupName_xpath =
+    private By groupName =
             By.xpath("//*[@id=\"app-root\"]/div/div[3]/div/div[4]/div/form/div[1]/input");
 
-    By groupDescription_xpath =
+    private By groupDescription =
             By.xpath("//*[@id=\"app-root\"]/div/div[3]/div/div[4]/div/form/div[2]/textarea");
 
-    By year_xpath =
+    private By year =
             By.xpath("//*[@id=\"app-root\"]/div/div[3]/div/div[4]/div/form/div[3]/div[1]/input");
 
-    By maxCapacity_xpath =
+    private By maxCapacity =
             By.xpath("//*[@id=\"app-root\"]/div/div[3]/div/div[4]/div/form/div[3]/div[2]/input");
 
-    By createGroupButton_xpath =
+    private By createGroupButton =
             By.xpath("//button[contains(normalize-space(.),'Create Group')]");
 
-    By successMessage =
-            By.xpath("//*[contains(text(),'Group created successfully')]");
+    private By successMessage =
+            By.xpath("//*[contains(normalize-space(.),'Group created successfully')]");
 
     public GroupPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    public void enterGroupName(String groupName) {
-        new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.visibilityOfElementLocated(groupName_xpath))
-                .sendKeys(groupName);
+    public void enterGroupName(String name) {
+        WebElement field = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(groupName));
+        field.clear();
+        field.sendKeys(name);
     }
 
     public void enterGroupDescription(String description) {
-        new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.visibilityOfElementLocated(groupDescription_xpath))
-                .sendKeys(description);
+        WebElement field = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(groupDescription));
+        field.clear();
+        field.sendKeys(description);
     }
 
-    public void enterYear(String year) {
-        new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.elementToBeClickable(year_xpath))
-                .sendKeys(year);
+    public void enterYear(String yearValue) {
+        WebElement field = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(year));
+        field.clear();
+        field.sendKeys(yearValue);
     }
 
     public void enterMaxCapacity(String capacity) {
-        WebElement maxCapacity = new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.visibilityOfElementLocated(maxCapacity_xpath));
+        WebElement field = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(maxCapacity));
 
-        maxCapacity.clear();
-        maxCapacity.sendKeys(capacity);
+        field.clear();
+        field.sendKeys(capacity);
 
-        String actualCapacity = maxCapacity.getAttribute("value");
+        String actualCapacity = field.getAttribute("value");
 
         Assert.assertEquals(actualCapacity, capacity,
                 "Max Capacity should be " + capacity);
     }
 
     public void clickCreateGroupButton() {
-        new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.elementToBeClickable(createGroupButton_xpath))
+        wait.until(ExpectedConditions.elementToBeClickable(createGroupButton))
                 .click();
     }
 
     public boolean isGroupCreated() {
-        return new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.visibilityOfElementLocated(successMessage))
+        return wait.until(
+                        ExpectedConditions.visibilityOfElementLocated(successMessage))
                 .isDisplayed();
     }
 }

@@ -33,8 +33,8 @@ public class ScreenshotUtil {
 
             return destination.toAbsolutePath().toString();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Screenshot capture failed: " + e.getMessage());
             return null;
         }
     }

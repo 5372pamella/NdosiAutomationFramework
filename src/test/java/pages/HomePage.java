@@ -10,28 +10,25 @@ import java.time.Duration;
 
 public class HomePage {
 
-    WebDriver driver;
+    private WebDriver driver;
+    private WebDriverWait wait;
 
-    By verifyHomePageContent_xpath =
+    private By homePageHeading =
             By.xpath("//div[@class='nav-items']/button/span[contains(text(),'Home')]");
 
-    By mainLoginButton_xpath =
+    private By mainLoginButton =
             By.xpath("//div[@class='nav-user-section']");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public void checkIfNdosiWebsiteIsLoaded() {
-        new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.visibilityOfElementLocated(
-                        verifyHomePageContent_xpath));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(homePageHeading));
     }
 
     public void clickHomeLoginButton() {
-        new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.elementToBeClickable(
-                        mainLoginButton_xpath))
-                .click();
+        wait.until(ExpectedConditions.elementToBeClickable(mainLoginButton)).click();
     }
 }
